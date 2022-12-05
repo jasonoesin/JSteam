@@ -20,6 +20,15 @@ public class Game {
         this.description = description;
     }
 
+    public Game(String name, String genre, Float rating, String price, String image, String description) {
+        this.name = name;
+        this.genre = genre;
+        this.rating = rating;
+        this.price = price;
+        this.image = image;
+        this.description = description;
+    }
+
     public Integer getId() {
         return id;
     }

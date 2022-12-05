@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.jsteam.model.User;
 
 public class UserHelper {
-    private static String database_table = "User";
+    private static final String database_table = "User";
     private final Context context;
     private DatabaseHelper database_helper;
     private SQLiteDatabase database;
