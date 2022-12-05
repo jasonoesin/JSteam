@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.jsteam.R;
 import com.example.jsteam.databinding.ActivityRegisterBinding;
 import com.example.jsteam.helper.UserHelper;
-import com.example.jsteam.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
         helper = new UserHelper(this);
 
         binding.toLogin.setOnClickListener(event -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
 
@@ -56,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             helper.close();
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
 
