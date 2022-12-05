@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             if(user == null){
                 Toast toast = Toast.makeText(getApplicationContext(), "Username and password doesn't match", Toast.LENGTH_SHORT);
                 toast.show();
+                helper.close();
                 return;
             }
 

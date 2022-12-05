@@ -30,6 +30,7 @@ public class UserHelper {
         String query = "select * from user";
 
         Cursor cursor = database.rawQuery(query, null);
+
         cursor.moveToFirst();
 
         if(cursor.getCount()>0){
@@ -46,7 +47,7 @@ public class UserHelper {
                     return new User(tempId, tempEmail, tempUsername, tempPassword, tempRegion);
                 }
 
-
+                cursor.moveToNext();
             }while(!cursor.isAfterLast());
         }
         cursor.close();

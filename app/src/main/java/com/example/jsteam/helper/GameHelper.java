@@ -37,69 +37,8 @@ public class GameHelper {
         database_helper.close();
     }
 
-//    public void volleyLoadData(){
-//        this.open();
-//
-//        RequestQueue queue = Volley.newRequestQueue(context);
-//
-//        String url = "https://mocki.io/v1/6b7306e9-5c3b-4341-8efa-601bbb9b3a94";
-//
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-//                (Request.Method.GET, url, null,
-//                        response ->{
-//                            ArrayList<Game> games = new ArrayList<>();
-//
-//                            try {
-//                                JSONArray jsonArray = response.getJSONArray("games");
-//
-//                                for (int i = 0 ; i < jsonArray.length() ; i++){
-//                                    String name, genre, price, image, desc;
-//                                    Double rating;
-//
-//                                    name = jsonArray.getJSONObject(i).getString("name");
-//                                    genre = jsonArray.getJSONObject(i).getString("genre");
-//                                    price = jsonArray.getJSONObject(i).getString("price");
-//                                    image = jsonArray.getJSONObject(i).getString("image");
-//                                    desc = jsonArray.getJSONObject(i).getString("description");
-//                                    rating = jsonArray.getJSONObject(i).getDouble("rating");
-//
-//                                    games.add(
-//                                            new Game(name,genre,rating.floatValue(),price,image,desc)
-//                                    );
-//                                }
-//                                insertGames(games);
-//
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                        , error -> {
-//                });
-//
-//        queue.add(jsonObjectRequest);
-//    }
-//
-//    public void insertGames(ArrayList<Game> games){
-//        database.execSQL("drop table if exists Game");
-//        String query = "Create table Game(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, genre TEXT, rating FLOAT, price TEXT, image TEXT, description TEXT)";
-//        database.execSQL(query);
-//
-//        for(Game g: games) {
-//            String description = g.getDescription().replace("'","''");
-//
-//            query = "insert into Game values(null, '"+g.getName()+"' ,'"+g.getGenre()+"',"+g.getRating()+",'"+g.getPrice()+"','"+g.getImage()+"','"+description+"' )";
-//
-//            Log.d("DEBUG", query);
-//
-//
-//            database.execSQL(query);
-//        }
-//
-//        this.close();
-//    }
-
     public ArrayList<Game> fetchGames(){
-        ArrayList<Game> games = new ArrayList<Game>();
+        ArrayList<Game> games = new ArrayList<>();
 
         String query = "select * from Game";
 
@@ -120,9 +59,38 @@ public class GameHelper {
                 games.add(
                         new Game(tempId, tempName,tempGenre,tempRating,tempPrice,tempImage,tempDescription)
                 );
+                cursor.moveToNext();
             }while(!cursor.isAfterLast());
         }
         cursor.close();
         return games;
+    }
+
+    public Game fetchGame(Integer gameId){
+        this.open();
+
+        String query = "select * from Game where id = "+ gameId+"";
+
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        if(cursor.getCount()>0){
+            do {
+
+                Integer tempId = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String tempName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String tempGenre = cursor.getString(cursor.getColumnIndexOrThrow("genre"));
+                Float tempRating = cursor.getFloat(cursor.getColumnIndexOrThrow("rating"));
+                String tempPrice = cursor.getString(cursor.getColumnIndexOrThrow("price"));
+                String tempImage = cursor.getString(cursor.getColumnIndexOrThrow("image"));
+                String tempDescription = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+                cursor.close();
+
+                return new Game(tempId, tempName,tempGenre,tempRating,tempPrice,tempImage,tempDescription);
+            }while(!cursor.isAfterLast());
+        }
+
+        cursor.close();
+        return null;
     }
 }
