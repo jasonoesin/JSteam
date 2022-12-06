@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.jsteam.model.Game;
 import com.example.jsteam.model.Review;
+import com.example.jsteam.model.User;
 
 import java.util.ArrayList;
 
@@ -76,5 +77,39 @@ public class ReviewHelper {
 
         cursor.close();
         return null;
+    }
+
+    public void postReview(Game game, String comment){
+        String query = "insert into Review values(null, '"+
+                CurrentUser.user.getId()
+                +"' ,'"+game.getId()+"','"+comment+"')";
+
+        Cursor inserted = database.rawQuery(query, null);
+
+        int _idLastInsertedRow = 0;
+        if (inserted != null) {
+            try {
+                if (inserted.moveToFirst()) {
+                    _idLastInsertedRow = inserted.getInt(0);
+                }
+            } finally {
+                inserted.close();
+            }
+        }
+    }
+
+    public void updateReview(Game game, String comment){
+        String query = "update Review set comment = '"+comment+"' where game_id = '"+game.getId()+"' and user_id = '"+CurrentUser.user
+                .getId()+"'";
+
+        database.execSQL(query);
+    }
+
+
+    public void deleteReview(Game game){
+        String query = "delete from Review where game_id = '"+game.getId()+"' and user_id = '"+CurrentUser.user
+                .getId()+"'";
+
+        database.execSQL(query);
     }
 }
