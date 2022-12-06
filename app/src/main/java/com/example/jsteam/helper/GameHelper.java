@@ -93,4 +93,65 @@ public class GameHelper {
         cursor.close();
         return null;
     }
+
+    public void volleyLoadData(){
+        this.open();
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        String url = "https://mocki.io/v1/6b7306e9-5c3b-4341-8efa-601bbb9b3a94";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null,
+                        response ->{
+                            ArrayList<Game> games = new ArrayList<>();
+
+                            try {
+                                JSONArray jsonArray = response.getJSONArray("games");
+
+                                for (int i = 0 ; i < jsonArray.length() ; i++){
+                                    String name, genre, price, image, desc;
+                                    Double rating;
+
+                                    name = jsonArray.getJSONObject(i).getString("name");
+                                    genre = jsonArray.getJSONObject(i).getString("genre");
+                                    price = jsonArray.getJSONObject(i).getString("price");
+                                    image = jsonArray.getJSONObject(i).getString("image");
+                                    desc = jsonArray.getJSONObject(i).getString("description");
+                                    rating = jsonArray.getJSONObject(i).getDouble("rating");
+
+                                    games.add(
+                                            new Game(name,genre,rating.floatValue(),price,image,desc)
+                                    );
+                                }
+
+                                Log.d("JS", games.size() + "");
+                                insertGames(games);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        , error -> {
+                });
+
+        queue.add(jsonObjectRequest);
+    }
+
+    public void insertGames(ArrayList<Game> games){
+
+        database.execSQL("drop table if exists Game");
+        String query = "Create table Game(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, genre TEXT, rating FLOAT, price TEXT, image TEXT, description TEXT)";
+        database.execSQL(query);
+
+        for(Game g: games) {
+            String description = g.getDescription().replace("'","''");
+
+            query = "insert into Game values(null, '"+g.getName()+"' ,'"+g.getGenre()+"',"+g.getRating()+",'"+g.getPrice()+"','"+g.getImage()+"','"+description+"' )";
+
+            Log.d("DEBUG", query);
+
+            database.execSQL(query);
+        }
+    }
 }

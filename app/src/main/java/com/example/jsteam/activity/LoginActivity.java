@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.jsteam.R;
 import com.example.jsteam.databinding.ActivityLoginBinding;
-import com.example.jsteam.databinding.ActivityRegisterBinding;
+import com.example.jsteam.helper.GameHelper;
 import com.example.jsteam.helper.UserHelper;
 import com.example.jsteam.model.User;
 
@@ -17,12 +15,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private UserHelper helper;
+    private GameHelper gameHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         helper = new UserHelper(this);
+        gameHelper = new GameHelper(this);
+
+
+        gameHelper.volleyLoadData();
+
 
 
         binding.toRegister.setOnClickListener(event -> {
@@ -64,5 +69,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
         setContentView(binding.getRoot());
+    }
+
+    @Override
+    public void onDestroy() {
+        helper.close();
+        gameHelper.close();
+        super.onDestroy();
     }
 }

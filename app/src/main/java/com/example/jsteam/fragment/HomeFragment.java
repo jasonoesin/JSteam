@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
+
     public void loadData(){
         helper.open();
         games = helper.fetchGames();
@@ -42,7 +44,11 @@ public class HomeFragment extends Fragment {
         GameAdapter adapter = new GameAdapter(games);
         binding.rvGames.setAdapter(adapter);
         binding.rvGames.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
 
+    @Override
+    public void onDestroy() {
         helper.close();
+        super.onDestroy();
     }
 }

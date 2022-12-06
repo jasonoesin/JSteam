@@ -21,6 +21,8 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         helper = new UserHelper(this);
 
+        helper.open();
+
         binding.toLogin.setOnClickListener(event -> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -47,16 +49,20 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            helper.open();
 
             helper.register(email, username, region, password);
 
-            helper.close();
 
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
 
         setContentView(binding.getRoot());
+    }
+
+    @Override
+    public void onDestroy() {
+        helper.close();
+        super.onDestroy();
     }
 }
