@@ -41,10 +41,11 @@ public class UserHelper {
                 String tempUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"));
                 String tempRegion = cursor.getString(cursor.getColumnIndexOrThrow("region"));
                 String tempPassword = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+                String tempPhone = cursor.getString(cursor.getColumnIndexOrThrow("phonenumber"));
 
                 if(username.equals(tempUsername) && password.equals(tempPassword)){
                     cursor.close();
-                    return new User(tempId, tempEmail, tempUsername, tempPassword, tempRegion);
+                    return new User(tempId, tempEmail, tempUsername, tempPassword, tempRegion, tempPhone);
                 }
 
                 cursor.moveToNext();
@@ -54,8 +55,8 @@ public class UserHelper {
         return null;
     }
 
-    public User register(String email, String username, String region, String password){
-        String query = "insert into User values(null, '"+email+"' ,'"+username+"','"+password+"','"+region+"' )";
+    public User register(String email, String username, String region, String password, String phone){
+        String query = "insert into User values(null, '"+email+"' ,'"+username+"','"+password+"','"+region+"','"+phone+"' )";
 
         Cursor inserted = database.rawQuery(query, null);
 
@@ -70,7 +71,7 @@ public class UserHelper {
             }
         }
         inserted.close();
-        return new User(_idLastInsertedRow, email, username, password, region);
+        return new User(_idLastInsertedRow, email, username, password, region, phone);
     }
 
 }

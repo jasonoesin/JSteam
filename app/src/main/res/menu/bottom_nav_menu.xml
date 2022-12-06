@@ -2,5 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Home"  android:icon="@drawable/ic_baseline_home_24" android:id="@+id/home"/>
     <item android:title="Reviews"  android:icon="@drawable/ic_baseline_comment_24" android:id="@+id/review" />
+    <item android:title="Profile"  android:icon="@drawable/ic_baseline_people_24" android:id="@+id/profile"/>
     <item android:title="About Us"  android:icon="@drawable/ic_baseline_location_on_24" android:id="@+id/about_us"/>
+
 </menu>

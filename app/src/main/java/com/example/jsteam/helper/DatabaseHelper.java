@@ -1,20 +1,15 @@
 package com.example.jsteam.helper;
 
+import static com.example.jsteam.activity.LoginActivity.preference;
+
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.jsteam.model.Game;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
+import com.example.jsteam.activity.LoginActivity;
+import com.example.jsteam.activity.MainActivity;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "JSteam";
@@ -28,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String query = "Create table User(id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE, username TEXT UNIQUE,password TEXT, region TEXT)";
+        String query = "Create table User(id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE, username TEXT UNIQUE,password TEXT, region TEXT, phonenumber TEXT)";
         sqLiteDatabase.execSQL(query);
 
         query = "Create table Review(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, game_id INTEGER,comment TEXT)";
@@ -36,6 +31,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         query = "Create table Game(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, genre TEXT, rating FLOAT, price TEXT, image TEXT, description TEXT)";
         sqLiteDatabase.execSQL(query);
+
+        context.getSharedPreferences(preference, Context.MODE_PRIVATE).edit().clear().apply();
+
+        goToLogin();
     }
 
     @Override
@@ -49,5 +48,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    public void goToLogin(){
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 }

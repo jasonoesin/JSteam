@@ -13,6 +13,7 @@ import com.example.jsteam.databinding.ActivityMainBinding;
 import com.example.jsteam.fragment.AboutUsFragment;
 import com.example.jsteam.fragment.HomeFragment;
 import com.example.jsteam.fragment.LocationFragment;
+import com.example.jsteam.fragment.ProfileFragment;
 import com.example.jsteam.fragment.ReviewFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.review:
                     replaceFragment(new ReviewFragment());
+                    break;
+                case R.id.profile:
+                    replaceFragment(new ProfileFragment());
                     break;
                 case R.id.about_us:
                     replaceFragment(new LocationFragment());

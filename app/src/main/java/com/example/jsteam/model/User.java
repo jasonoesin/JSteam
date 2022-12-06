@@ -7,13 +7,31 @@ public class User {
     private String username;
     private String password;
     private String region;
+    private String phoneNumber;
 
-    public User(Integer id, String email, String username,String password, String region) {
+    public User(Integer id, String email, String username,String password, String region, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.region = region;
         this.password = password;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(Integer id, String email, String username, String region, String phoneNumber) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.region = region;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getId() {

@@ -29,13 +29,14 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         binding.register.setOnClickListener(event -> {
-            String username, region, email, password, confirm;
+            String username, region, email, password, confirm, phone;
 
             username = String.valueOf(binding.username.getText());
             region = String.valueOf(binding.region.getText());
             email = String.valueOf(binding.email.getText());
             password = String.valueOf(binding.password.getText());
             confirm = String.valueOf(binding.confirmPassword.getText());
+            phone = String.valueOf(binding.phone.getText());
 
             Log.d("DEBUG", username);
 
@@ -50,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
 
-            helper.register(email, username, region, password);
+            helper.register(email, username, region, password, phone);
 
 
             Intent intent = new Intent(this, LoginActivity.class);
