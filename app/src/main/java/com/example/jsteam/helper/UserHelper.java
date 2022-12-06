@@ -55,6 +55,21 @@ public class UserHelper {
         return null;
     }
 
+    public boolean checkUnique(String username){
+        String query = "select * from user where username = '"+username+"'";
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        cursor.moveToFirst();
+
+        if(cursor.getCount()>0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
     public User register(String email, String username, String region, String password, String phone){
         String query = "insert into User values(null, '"+email+"' ,'"+username+"','"+password+"','"+region+"','"+phone+"' )";
 
