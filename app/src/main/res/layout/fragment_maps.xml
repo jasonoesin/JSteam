@@ -1,29 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.LocationFragment"
+    tools:context=".fragment.MapsFragment"
     android:background="@color/primary">
 
 
+
+    <fragment
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        />
+
     <TextView
+        android:background="@color/primary"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:text="JSteam's Headquarter in Jakarta" />
 
-    <fragment
-        android:id="@+id/map"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/textView1"
-        class="com.google.android.gms.maps.MapFragment"/>
 
 </RelativeLayout>
