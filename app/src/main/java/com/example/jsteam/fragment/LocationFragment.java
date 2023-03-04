@@ -17,16 +17,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsFragment extends Fragment {
+public class LocationFragment extends Fragment {
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            LatLng latLng = new LatLng(-6.200000, 106.816666);
-            googleMap.addMarker(new MarkerOptions().position(latLng).title("JSteam's Headquarter in Jakarta"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f));
-        }
+    private OnMapReadyCallback callback = googleMap -> {
+        LatLng latLng = new LatLng(6.2018, 106.7823);
+        googleMap.addMarker(new MarkerOptions().position(latLng).title("JSteam's Headquarter in Jakarta"));
+        googleMap.moveCamera((CameraUpdateFactory.newLatLngZoom(latLng,17f)));
     };
 
     @Nullable
@@ -34,7 +30,7 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        return inflater.inflate(R.layout.fragment_location, container, false);
     }
 
     @Override

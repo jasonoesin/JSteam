@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.jsteam.R;
 import com.example.jsteam.databinding.ActivityMainBinding;
+import com.example.jsteam.fragment.AboutUsFragment;
 import com.example.jsteam.fragment.HomeFragment;
-import com.example.jsteam.fragment.MapsFragment;
+import com.example.jsteam.fragment.LocationFragment;
 import com.example.jsteam.fragment.ProfileFragment;
 import com.example.jsteam.fragment.ReviewFragment;
 
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new ProfileFragment());
                     break;
                 case R.id.about_us:
-                    replaceFragment(new MapsFragment());
+                    replaceFragment(new LocationFragment());
                     break;
 
             }

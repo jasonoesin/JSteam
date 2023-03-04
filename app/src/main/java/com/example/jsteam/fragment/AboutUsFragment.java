@@ -10,17 +10,21 @@ import android.view.ViewGroup;
 
 import com.example.jsteam.R;
 import com.example.jsteam.databinding.FragmentAboutUsBinding;
-import com.example.jsteam.databinding.FragmentReviewBinding;
 
-public class ReviewFragment extends Fragment {
+public class AboutUsFragment extends Fragment {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
 
-    FragmentReviewBinding binding;
+    FragmentAboutUsBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentReviewBinding.inflate(inflater);
+        binding = FragmentAboutUsBinding.inflate(inflater);
 
         return binding.getRoot();
     }
